@@ -1059,19 +1059,17 @@
 	chkLateLoaded();
 
 	// TEST CODE START //
-
-	//Create test hooks
-
 	function mockMsgListener(msgObject){
+		//Create test hooks
+		win={};
+		removeEventListener(window, 'message', receiver);
 		receiver(msgObject);
 		return win;
 	}
 
-	win={};
-
-	removeEventListener(window, 'message', receiver);
-
-	define([], function() {return mockMsgListener;});
+	if (typeof define === 'function' && define.amd) {
+		define([], function() {return mockMsgListener;});
+	}
 
 	// TEST CODE END //
 
